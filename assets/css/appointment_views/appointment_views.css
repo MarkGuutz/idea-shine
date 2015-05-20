@@ -1,0 +1,12 @@
+label{
+    font-size: 16px;
+}
+
+.format_ex{
+	color: gray;
+	font-size: 12px;
+}
+
+.validation_prompt{
+	color: red;
+}
