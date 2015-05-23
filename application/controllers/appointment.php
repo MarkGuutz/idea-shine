@@ -12,10 +12,10 @@ class Appointment extends CI_Controller {
 
 	public function contact()
 	{
-		$this->form_validation->set_rules('first_name', 'First Name', 'required');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'required');
-		$this->form_validation->set_rules('phone_no', 'Phone Number', 'required|is_natural|exact_length[10]');
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('first_name', 'first name', 'required');
+		$this->form_validation->set_rules('last_name', 'last name', 'required');
+		$this->form_validation->set_rules('phone_no', 'phone number', 'required|is_natural|exact_length[10]');
+		$this->form_validation->set_rules('email', 'email', 'required|valid_email');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -31,21 +31,71 @@ class Appointment extends CI_Controller {
 
 	public function vehicle()
 	{
-		$this->form_validation->set_rules('make', 'Make', 'required');
-		$this->form_validation->set_rules('model', 'Model', 'required');
-		$this->form_validation->set_rules('year', 'Year', 'required');
+		$this->form_validation->set_rules('make', 'make', 'required');
+		$this->form_validation->set_rules('model', 'model', 'required');
+		$this->form_validation->set_rules('year', 'year', 'required');
 		if ($this->form_validation->run() == FALSE)
 		{
 			$this->load->view("appt_vehicle_info");
 		}
 		else
 		{
+			$data = $this->input->post();
+			$this->session->set_userdata($data);
 			redirect("/appointment/appt");
 		}
 	}
 
 	public function appt()
 	{
-		$this->load->view("appt_appt_info");
+		$this->form_validation->set_rules('date', 'date', 'required');
+		$this->form_validation->set_rules('time', 'time', 'required');
+		$this->form_validation->set_rules('package', 'package', 'required');
+		$this->form_validation->set_rules('street', 'street', 'required');
+		$this->form_validation->set_rules('city', 'city', 'required');
+		$this->form_validation->set_rules('zip', 'zip', 'required|exact_length[5]');
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view("appt_appt_info");
+		}
+		else
+		{
+			$data = $this->input->post();
+			$this->session->set_userdata($data);
+			redirect("/appointment/details");
+		}
+		
+	}
+
+	public function details()
+	{
+		$this->load->view("appt_details");
+	}
+
+	public function send_appt()
+	{
+	
+    $config = Array(
+		'protocol' => 'smtp',
+		'smtp_host' => 'ssl://smtp.googlemail.com',
+		'smtp_port' => 465,
+		'smtp_user' => 'idealshinedetailing@gmail.com', 
+		'smtp_pass' => 'danielsmells', 
+		'mailtype' => 'html',
+		'charset' => 'iso-8859-1',
+		'wordwrap' => TRUE);
+
+		$this->load->library('email', $config);
+		$this->email->set_newline("\r\n");
+		$this->email->from('idealshinedetailing@gmail.com', 'Ideal Shine Detailing');
+		$this->email->to($this->session->userdata('email')); 
+		$msg = $this->load->view('appt_details', '', true);
+
+		$this->email->subject('Appointment Request Received');
+		$this->email->message($msg);	
+
+		$this->email->send();
+
+		echo $this->email->print_debugger();
 	}
 }

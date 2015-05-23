@@ -18,14 +18,13 @@
 	    			});
     			});
 			$.get("https://api.edmunds.com/api/vehicle/v2/makes?fmt=json&api_key=49kzsbfg3qem84zj35unehhs", function(res) { 
-/********************************************************** List updates on errors w/ validation ****************************************************/
-				var html_str = "<option value = <?= set_value('make')?>> <?= set_value('make')?> </option>";
+/********************************************** Lists updates on errors w/ validation or session is set ************************************************/
+				var html_str = "<option value = '<?= $this->session->userdata('make')?><?= set_value('make')?>'><?= set_value('make')?><?= $this->session->userdata('make')?> </option>";
                     html_str += "<option value = 'Other'> Other </option>"; 
                     for(var i = 0; i < res.makes.length; i++) {
                         html_str += "<option value = '"+ res.makes[i].name+"'>" + res.makes[i].name + "</option>";
                     }
                     $("#makers_list").html(html_str);
-                    html_str = "<option <?= set_value('make')?>><?= set_value('make')?></option>";
                     for(var i = 0; i < res.makes.length; i++) {
                 			if ($("#makers_list").val() == res.makes[i].name){
 	                			for(var j = 0; j < res.makes[i].models.length; j++) {
@@ -35,7 +34,8 @@
                 		}
                 	$("#models_list").html(html_str);
                 	html_str = '';
-                	html_str += "<option <?= set_value('model')?>><?= set_value('model')?></option>"; 
+                	html_str += "<option value = '<?= $this->session->userdata('model')?><?= set_value('model')?>'><?= $this->session->userdata('model')?><?= set_value('model')?></option>"; 
+                	html_str += "<option value = 'Other'> Other </option>"; 	
                 		for(var i = 0; i < res.makes.length; i++) {
                 			if ($("#makers_list").val() == res.makes[i].name){
 	                			for(var j = 0; j < res.makes[i].models.length; j++) {
@@ -45,7 +45,8 @@
                 		}
                 	$("#models_list").html(html_str);
                 	html_str = '';
-                	html_str += "<option> </option>"; 
+                	html_str += "<option value = <?= $this->session->userdata('year')?>> <?= $this->session->userdata('year')?> </option>"; 
+                	html_str += "<option value = 'Other'> Other </option>"; 
                 	for(var i = 0; i < res.makes.length; i++) {
                 			if ($("#makers_list").val() == res.makes[i].name){
 	                			for(var j = 0; j < res.makes[i].models.length; j++) {
@@ -58,7 +59,7 @@
 		                    }
                 		}
                 	$("#years_list").html(html_str);
-/****************************************************************** List updates on change *************************************************************/
+/**************************************************** List updates on change *************************************************************/
                 	$("#makers_list").change(function(){
                 		html_str = "<option></option>";
                 		$("#years_list").html('');
@@ -101,62 +102,65 @@
 	<a href="/appointment/contact"> Back </a>
 	<form class = "form-horizontal" action = "/appointment/vehicle" method = "post" id = "vehicleForm">
 		<div class = "form-group">
-			<label class = "col-md-offset-2 col-md-1 control-label"> Make: </label>
-				<div class = "col-md-4">
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Make: </label>
+				<div class = "col-sm-7 col-md-4">
 					<select name = "make" class = "form-control
 <?php 
 				if (form_error('make') == TRUE) {
-					echo 'validation_border'; 
+					echo 'input_active'; 
 				} 
-?>			
-					" id="makers_list"
+?>" 
+					id = "makers_list"
 					required oninvalid = "this.setCustomValidity('Please choose a make.')"
-					onchange="this.setCustomValidity('')"
-					x-moz-errormessage="Please choose a make.">
+					onchange = "this.setCustomValidity('')"
+					x-moz-errormessage = "Please choose a make.">
 					</select>
+					<span class = "validation_prompt"><?= form_error('make')?> </span>
 				</div>
 		</div>
 		<div class = "form-group">
-			<label class = "col-md-offset-2 col-md-1 control-label"> Model: </label>
-				<div class = "col-md-4">
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Model: </label>
+				<div class = "col-sm-7 col-md-4">
 					<select name = "model" class = "form-control
 <?php 
 				if (form_error('model') == TRUE) {
-					echo 'validation_border'; 
+					echo 'input_active'; 
 				} 
-?>
-					" id = "models_list"
+?>" 
+					id = "models_list"
 					required oninvalid = "this.setCustomValidity('Please choose a model.')"
-					onchange="this.setCustomValidity('')"
-					x-moz-errormessage="Please choose a model.">
+					onchange = "this.setCustomValidity('')"
+					x-moz-errormessage = "Please choose a model.">
 					</select>
+					<span class = "validation_prompt"><?= form_error('model')?> </span>
 				</div>
 		</div>
 		<div class = "form-group">
-			<label class = "col-md-offset-2 col-md-1 control-label"> Year: </label>
-				<div class = "col-md-4">
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Year: </label>
+				<div class = "col-sm-7 col-md-4">
 					<select name = "year" class = "form-control
 <?php 
 				if (form_error('year') == TRUE) {
-					echo 'validation_border'; 
+					echo 'input_active'; 
 				} 
-?>
-					" id = "years_list"
+?>" 
+					id = "years_list"
 					required oninvalid = "this.setCustomValidity('Please choose a year.')"
 					onchange="this.setCustomValidity('')"
 					x-moz-errormessage="Please choose a year.">
 					</select>
+					<span class = "validation_prompt"><?= form_error('year')?> </span>
 				</div>
 		</div>
 		<div class = "form-group">
-			<label class = "col-md-offset-1 col-md-2 control-label"> Additional Info: </label>
-			<div class = "col-md-5">
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Additional Info: </label>
+			<div class = "col-sm-7 col-md-5">
 				<textarea class="form-control" rows="4" name = "vehicle_additional" 
-				placeholder = "If you cannot find your vehicle: 1. Select 'Other' in all the dropdowns above 2. Write the make, model, and year in this text-box."></textarea>
+				placeholder = "If you cannot find your vehicle: 1. Select 'Other' in all the dropdowns above 2. Write the make, model, and year in this text-box."><?= $this->session->userdata('vehicle_additional')?></textarea>
 			</div>
 		</div>
 		<div class = "form-group">
-			<div class = "col-sm-offset-5 col-md-offset-5">
+			<div class = "col-xs-offset-3 col-sm-offset-5 col-md-offset-5">
 				<button type="submit" class="btn btn-default">Continue to Appointment Info</button>
 			</div>
 		</div>

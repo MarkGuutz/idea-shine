@@ -16,25 +16,13 @@
     					$(".form-control").addClass("input_active");
     				}
     			});
+
+    			$("#contactForm input").each(function(){
+    				if(<?php form_error('first_name') == TRUE ?>){
+    					alert('hi');
+    				}
+    			})
     		});
-    // 		$('#contactForm').on('submit', function(e){
-		  //       e.preventDefault();
-			 //        if ($("#first_name").val() === "") {
-				// 		$("#first_name").addClass("input_active");
-				// 	}
-				// 	if ($("#last_name").val() === "") {
-				// 		$("#last_name").addClass("input_active");
-				// 	}
-				// 	if ($("#phone_no").val() === "") {
-				// 		$("#phone_no").addClass("input_active");
-				// 	}
-				// 	if ($("#inputEmail3").val() === "") {
-				// 		$("#inputEmail3").addClass("input_active");
-				// 	}
-				// else{
-				// 	this.submit();
-				// }
-    // 		});
     	});	
 	</script>
 	<style type="text/css">
