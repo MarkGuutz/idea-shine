@@ -19,7 +19,8 @@ class Appointment extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view("appt_contact_info");
+			$head_title = array("title" => "Schedule: Contact Info");
+			$this->load->view("appt_contact_info", $head_title);
 		}
 		else
 		{
@@ -36,7 +37,8 @@ class Appointment extends CI_Controller {
 		$this->form_validation->set_rules('year', 'year', 'required');
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view("appt_vehicle_info");
+			$head_title = array("title" => "Schedule: Vehicle Info");
+			$this->load->view("appt_vehicle_info", $head_title);
 		}
 		else
 		{
@@ -56,7 +58,8 @@ class Appointment extends CI_Controller {
 		$this->form_validation->set_rules('zip', 'zip', 'required|exact_length[5]');
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view("appt_appt_info");
+			$head_title = array("title" => "Schedule: Appointment Info");
+			$this->load->view("appt_appt_info", $head_title);
 		}
 		else
 		{
@@ -69,7 +72,8 @@ class Appointment extends CI_Controller {
 
 	public function details()
 	{
-		$this->load->view("appt_details");
+		$head_title = array("title" => "Appointment Summary");
+		$this->load->view("appt_details", $head_title);
 	}
 
 	public function send_appt()

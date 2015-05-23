@@ -1,13 +1,4 @@
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Appointment: Vehicle Info</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="/assets/css/appointment_views/appointment_views.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<?php $this->load->view('templates/header') ?>
 	<script type="text/javascript">
 		$(document).ready(function(){
 				$("button").click(function(){
@@ -26,38 +17,38 @@
                     }
                     $("#makers_list").html(html_str);
                     for(var i = 0; i < res.makes.length; i++) {
-                			if ($("#makers_list").val() == res.makes[i].name){
-	                			for(var j = 0; j < res.makes[i].models.length; j++) {
-		                        	html_str += "<option value = '"+ res.makes[i].models[j].name+"'>" + res.makes[i].models[j].name + "</option>";
-		                        }
-		                    }
-                		}
+            			if ($("#makers_list").val() == res.makes[i].name){
+                			for(var j = 0; j < res.makes[i].models.length; j++) {
+	                        	html_str += "<option value = '"+ res.makes[i].models[j].name+"'>" + res.makes[i].models[j].name + "</option>";
+	                        }
+	                    }
+            		}
                 	$("#models_list").html(html_str);
                 	html_str = '';
                 	html_str += "<option value = '<?= $this->session->userdata('model')?><?= set_value('model')?>'><?= $this->session->userdata('model')?><?= set_value('model')?></option>"; 
                 	html_str += "<option value = 'Other'> Other </option>"; 	
-                		for(var i = 0; i < res.makes.length; i++) {
-                			if ($("#makers_list").val() == res.makes[i].name){
-	                			for(var j = 0; j < res.makes[i].models.length; j++) {
-		                        	html_str += "<option value = '"+ res.makes[i].models[j].name+"'>" + res.makes[i].models[j].name + "</option>";
-		                        }
-		                    }
-                		}
+            		for(var i = 0; i < res.makes.length; i++) {
+            			if ($("#makers_list").val() == res.makes[i].name){
+                			for(var j = 0; j < res.makes[i].models.length; j++) {
+	                        	html_str += "<option value = '"+ res.makes[i].models[j].name+"'>" + res.makes[i].models[j].name + "</option>";
+	                        }
+	                    }
+            		}
                 	$("#models_list").html(html_str);
                 	html_str = '';
                 	html_str += "<option value = <?= $this->session->userdata('year')?>> <?= $this->session->userdata('year')?> </option>"; 
                 	html_str += "<option value = 'Other'> Other </option>"; 
                 	for(var i = 0; i < res.makes.length; i++) {
-                			if ($("#makers_list").val() == res.makes[i].name){
-	                			for(var j = 0; j < res.makes[i].models.length; j++) {
-		                        	if ($("#models_list").val() == res.makes[i].models[j].name){
-		                        		for(var k = 0; k < res.makes[i].models[j].years.length; k++){
-		                        			html_str += "<option value = '"+ res.makes[i].models[j].years[k].year+"'>" + res.makes[i].models[j].years[k].year + "</option>";
-		                        		}
-		                        	}
-		                        }
-		                    }
-                		}
+            			if ($("#makers_list").val() == res.makes[i].name){
+                			for(var j = 0; j < res.makes[i].models.length; j++) {
+	                        	if ($("#models_list").val() == res.makes[i].models[j].name){
+	                        		for(var k = 0; k < res.makes[i].models[j].years.length; k++){
+	                        			html_str += "<option value = '"+ res.makes[i].models[j].years[k].year+"'>" + res.makes[i].models[j].years[k].year + "</option>";
+	                        		}
+	                        	}
+	                        }
+	                    }
+            		}
                 	$("#years_list").html(html_str);
 /**************************************************** List updates on change *************************************************************/
                 	$("#makers_list").change(function(){
