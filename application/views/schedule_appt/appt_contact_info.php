@@ -1,6 +1,7 @@
 <?php $this->load->view('templates/header') ?>
 	<script type="text/javascript">
     	$(document).ready(function(){
+/* For browsers w/ HTML5 support for <input> required attribute: Border outlined in red when required == False after submit clicked*/
     		$("button").click(function(){
     			$("#contactForm input").each(function(){
     				if ($(this).val() == ""){
@@ -11,24 +12,26 @@
     	});	
 	</script>
 	<style type="text/css">
-    .input_active:invalid, .validation_border{
+    .input_active:invalid{
         border: 1px solid red;
     }
 	</style>
 </head>
 <body>
 	<form class = "form-horizontal" action = "/appointment/contact" id = "contactForm" method = "post">
+<!-- ************************************** First Name Input *************************************** -->
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> First Name: </label>
 			<div class = "col-sm-7 col-md-4">
+	<!--**** 1. Add class if form_error == TRUE  2. Set value to session('first_name') if == TRUE 3. Set 
+			'required' attribute ****-->
 				<input type="text" class="form-control 
-<?php 			if (form_error('first_name') == TRUE) {
-					echo 'input_active'; 
-				} 
-?>" 			name ="first_name" id = "first_name"
-				value="<?= set_value("first_name")?>
-<?php 
-				if ($this->session->userdata("first_name") == TRUE && set_value("first_name") == FALSE) {
+<?php 			if (form_error('first_name') == TRUE):?>
+					input_active
+<?php 			endif; ?>" 			
+				name ="first_name" id = "first_name"
+				value="<?= set_value("first_name") ?>
+<?php 			if ($this->session->userdata("first_name") == TRUE && set_value("first_name") == FALSE) {
 					echo $this->session->userdata("first_name"); 
 				} 
 ?>"				required oninvalid="this.setCustomValidity('Please include a first name.')" 
@@ -38,15 +41,17 @@
 				<span class = "validation_prompt"><?= form_error('first_name')?></span>
 			</div>
 		</div>
+<!-- ************************************** Last Name Input *************************************** -->
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Last Name: </label>
 			<div class = "col-sm-7 col-md-4">
+	<!--**** 1. Add class if form_error == TRUE  2. Set value to session('last_name') if == TRUE 3. Set 
+			'required' attribute ****-->
 				<input type="text" class="form-control
-<?php 
-				if (form_error('last_name') == TRUE) {
-					echo 'input_active'; 
-				} 
-?>"				name = "last_name" id = "last_name"
+<?php 			if (form_error('last_name') == TRUE):?>
+					input_active
+<?php 			endif; ?>" 	
+				name = "last_name" id = "last_name"
 				value="<?= set_value('last_name') ?>
 <?php 
 				if ($this->session->userdata("last_name") == TRUE && set_value("last_name") == FALSE) {
@@ -58,16 +63,17 @@
 				<span class = "validation_prompt"><?= form_error('last_name')?></span>	
 			</div>
 		</div>
+<!-- ************************************** Phone Number Input *************************************** -->
 		<div class = "form-group">
-			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Phone Number: <br> 
-			<span class = "format_ex">(Numbers only)</span> </label>
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Phone Number:</label>
 			<div class = "col-sm-7 col-md-4">
+	<!--**** 1. Add class if form_error == TRUE  2. Set value to session('phone_no') if == TRUE 3. Set 
+			'required' attribute ****-->
 				<input type="text" class="form-control
-<?php 
-				if (form_error('phone_no') == TRUE) {
-					echo 'input_active'; 
-				} 
-?>" 			name = "phone_no" id = "phone_no"
+<?php 			if (form_error('phone_no') == TRUE):?>
+					input_active
+<?php 			endif; ?>" 	
+	 			name = "phone_no" id = "phone_no"
 				value="<?= set_value('phone_no') ?>
 <?php 
 				if ($this->session->userdata("phone_no") == TRUE && set_value("phone_no") == FALSE) { 
@@ -75,21 +81,21 @@
 				} 
 ?>"				required oninvalid="this.setCustomValidity('Please include a valid phone number.')" 
 				x-moz-errormessage="Please include a valid phone number." 
-				onchange="this.setCustomValidity('')"
-				pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
-				title="Please enter only numbers (e.g. 1234567890) with no dashes or parenthesis.">
+				onchange="this.setCustomValidity('')">
 				<span class = "validation_prompt"><?= form_error('phone_no')?></span>	
 			</div>
 		</div>
+<!-- ************************************** Email Input *************************************** -->
 		<div class="form-group">
     		<label for="inputEmail3" class="col-sm-3 col-md-offset-2 col-md-2 control-label">Email:</label>
    			 <div class="col-sm-7 col-md-4">
+   	<!--**** 1. Add class if form_error == TRUE  2. Set value to session('email') if == TRUE 3. Set 
+			'required' attribute ****-->
       			<input type="email" class="form-control
-<?php 
-				if (form_error('email') == TRUE) {
-					echo 'input_active'; 
-				} 
-?>" 			id="inputEmail3" name = "email" id = "email"
+<?php 			if (form_error('email') == TRUE):?>
+					input_active
+<?php 			endif; ?>" 	
+	 			id="inputEmail3" name = "email" id = "email"
 				value="<?= set_value('email') ?> 
 <?php 
 				if ($this->session->userdata("email") == TRUE && set_value("email") == FALSE) {

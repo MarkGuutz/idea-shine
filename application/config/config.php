@@ -33,7 +33,7 @@ $config['cache_path'] = '';
 $config['encryption_key'] = '(00|_3n(rYp+!0n_k3Y';
 
 $config['sess_cookie_name']		= 'ci_session';
-$config['sess_expiration']		= '1200';
+$config['sess_expiration']		= '0';
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= FALSE;
