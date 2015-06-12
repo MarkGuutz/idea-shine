@@ -1,14 +1,8 @@
 <?php $this->load->view('templates/header') ?>
+	<link rel="stylesheet" type="text/css" href="/assets/css/appointment_views/appointment_views.css">
+	<script type="text/javascript" src="/assets/js/input_active.js"> </script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-/* For browsers w/ HTML5 support for <input> required attribute: Border outlined in red when required == False after submit clicked*/
-				$("button").click(function(){
-	    			$("#vehicleForm").each(function(){
-	    				if ($(this).val() == ""){
-	    					$(".form-control").addClass("input_active");
-	    				}
-	    			});
-    			});
 /******************************************** API call to Edmunds Car DB ***********************************************/				
 		/******************************* Lists makes, models, & year on page load  ********************************/
 		$.get("https://api.edmunds.com/api/vehicle/v2/makes?fmt=json&api_key=49kzsbfg3qem84zj35unehhs", function(res) { 
@@ -93,13 +87,11 @@
             }, "json");
 		});
 	</script>
-	<style type="text/css">
-    .input_active:invalid{
-        border: 1px solid red;
-    }
-	</style>
 </head>
-<body>
+<?php $this->load->view('templates/navbar') ?>
+	<div class="container-fluid location-header">
+		<h3>Schedule Appointment</h3>
+	</div>
 	<a href="/appointment/contact"> Back </a>
 	<form class = "form-horizontal" action = "/appointment/vehicle" method = "post" id = "vehicleForm">
 <!-- ************************************** Make Input *************************************** -->		
@@ -167,5 +159,4 @@
 			</div>
 		</div>
 	</form>
-</body>
-</html>
+<?php $this->load->view('templates/footer') ?>

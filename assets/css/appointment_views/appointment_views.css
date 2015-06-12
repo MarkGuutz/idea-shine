@@ -10,3 +10,7 @@ label{
 .validation_prompt{
 	color: red;
 }
+
+.input_active:invalid{
+    border: 1px solid red;
+}

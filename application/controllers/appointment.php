@@ -6,8 +6,7 @@ class Appointment extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library("form_validation");
-		$this->output->enable_profiler();
-		
+		// $this->output->enable_profiler();
 	}
 //******************* Loads contact page for appointment requests and runs validations for inputs  ******************
 	public function contact()
@@ -144,7 +143,7 @@ class Appointment extends CI_Controller {
 		$this->email->set_newline("\r\n");
 		$this->email->from('idealshinedetailing@gmail.com', 'Ideal Shine Detailing');
 		$this->email->to($this->session->userdata('email')); 
-		$this->email->bcc('idealshinedetailing@gmail.coma'); 
+		$this->email->bcc('idealshinedetailing@gmail.com'); 
 		$this->email->subject('Appointment Request Received');
 		$msg = $this->load->view('schedule_appt/emailed_appt_info', '', true);
 		$this->email->message($msg);

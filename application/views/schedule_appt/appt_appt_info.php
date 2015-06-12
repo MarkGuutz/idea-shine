@@ -2,26 +2,17 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
   	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  	<link rel="stylesheet" type="text/css" href="/assets/css/appointment_views/appointment_views.css">
+  	<script type="text/javascript" src="/assets/js/input_active.js"> </script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$(function() {
 /*************************************** jQuery UI Datepicker ****************************************/
    				$( "#date" ).datepicker({
-   					// showOn: "button",
-        //         	buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
-        //         	buttonImageOnly: true,
    					minDate: 0,
    					dateFormat: "DD, mm/dd/yy",
    				});
   			});
-/* For browsers w/ HTML5 support for <input> required attribute: Border outlined in red when required == False after submit clicked*/
-    		$("button").click(function(){
-    			$("#apptForm input").each(function(){
-    				if ($(this).val() == ""){
-    					$(".form-control").addClass("input_active");
-    				}
-    			});
-    		});
 /**************************** Sets value to session or set_value if either == TRUE*************************************/
 <?php 		if (!empty($this->session->userdata("time")) && empty(set_value('time')) && empty(form_error('time'))):?>
 				html_str =  "<option> <?= $this->session->userdata('time')?> </option>";
@@ -55,13 +46,11 @@
 			});
 		});
 	</script>
-	<style type="text/css">
-		.input_active:invalid{
-        border: 1px solid red;
-    }
-	</style>
 </head>
-<body>
+<?php $this->load->view('templates/navbar') ?>
+	<div class="container-fluid location-header">
+		<h3>Schedule Appointment</h3>
+	</div>
 	<a href="/appointment/vehicle"> Back </a>
 	<form class = "form-horizontal" action = "/appointment/appt" id = "apptForm" method = "post">
 <!-- ************************************** Date Input *************************************** -->			
@@ -208,5 +197,4 @@
 			</div>
 		</div>
 	</form>
-</body>
-</html>
+<?php $this->load->view('templates/footer') ?>

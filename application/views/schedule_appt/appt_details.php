@@ -2,16 +2,10 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
   	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  	<link rel="stylesheet" type="text/css" href="/assets/css/appointment_views/appointment_views.css">
+	<script type="text/javascript" src="/assets/js/input_active.js"> </script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-/* For browsers w/ HTML5 support for <input> required attribute: Border outlined in red when required == False after submit clicked*/
-				$("button").click(function(){
-	    			$("#details input").each(function(){
-	    				if ($(this).val() == ""){
-	    					$(".form-control").addClass("input_active");
-	    				}
-	    			});
-    			});
 /******************************************** API call to Edmunds Car DB ***********************************************/				
 		/******************************* Lists makes, models, & year on page load  ********************************/
 		$.get("https://api.edmunds.com/api/vehicle/v2/makes?fmt=json&api_key=49kzsbfg3qem84zj35unehhs", function(res) { 
@@ -134,13 +128,11 @@
 			});
 		});
 	</script>
-	<style type="text/css">
-    .input_active:invalid{
-        border: 1px solid red;
-    }
-	</style>
 </head>
-<body>
+<?php $this->load->view('templates/navbar') ?>
+	<div class="container-fluid location-header">
+		<h3>Schedule Appointment</h3>
+	</div>
 	<a href="/appointment/appt"> Back </a>
 <span class = "validation_prompt"> <?= $this->session->flashdata('email_error') ?> </span>
 	<form class = "form-horizontal" action = "/appointment/details" method = "post" id = "details">
@@ -206,9 +198,7 @@
 				} 
 ?>"				required oninvalid="this.setCustomValidity('Please include a valid phone number.')" 
 				x-moz-errormessage="Please include a valid phone number." 
-				onchange="this.setCustomValidity('')"
-				pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
-				title="Please enter only numbers (e.g. 1234567890) with no dashes or parenthesis.">
+				onchange="this.setCustomValidity('')">
 				<span class = "validation_prompt"><?= form_error('phone_no')?></span>	
 			</div>
 		</div>
@@ -441,5 +431,4 @@
 			</div>
 		</div>
 	</form>
-</body>
-</html>
+<?php $this->load->view('templates/footer') ?>

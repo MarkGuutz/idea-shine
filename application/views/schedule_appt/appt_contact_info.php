@@ -1,23 +1,12 @@
 <?php $this->load->view('templates/header') ?>
-	<script type="text/javascript">
-    	$(document).ready(function(){
-/* For browsers w/ HTML5 support for <input> required attribute: Border outlined in red when required == False after submit clicked*/
-    		$("button").click(function(){
-    			$("#contactForm input").each(function(){
-    				if ($(this).val() == ""){
-    					$(".form-control").addClass("input_active");
-    				}
-    			});
-    		});
-    	});	
-	</script>
-	<style type="text/css">
-    .input_active:invalid{
-        border: 1px solid red;
-    }
-	</style>
+	<link rel="stylesheet" type="text/css" href="/assets/css/appointment_views/appointment_views.css">
+	<script type="text/javascript" src="/assets/js/input_active.js"> </script>
 </head>
-<body>
+<?php $this->load->view('templates/navbar') ?>
+	<div class="container-fluid location-header">
+		<h3>Schedule Appointment</h3>
+	</div>
+	<?= $this->session->flashdata("status") ?>
 	<form class = "form-horizontal" action = "/appointment/contact" id = "contactForm" method = "post">
 <!-- ************************************** First Name Input *************************************** -->
 		<div class = "form-group">
@@ -113,5 +102,4 @@
 			</div>
 		</div>
 	</form>
-</body>
-</html>
+<?php $this->load->view('templates/footer') ?>
