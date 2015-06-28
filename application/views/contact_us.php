@@ -2,11 +2,16 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/appointment_views/appointment_views.css">
 	<script type="text/javascript" src="/assets/js/input_active.js"> </script>
 	<link href='http://fonts.googleapis.com/css?family=Karma:600' rel='stylesheet' type='text/css'>
+</head>
 <style type="text/css">
 	.success_prompt{
 		color: green;
 	}
 
+	.validation_prompt{
+		color:red;
+	}
+	
 	.contact-options div h5{
 		margin: 2px 0px -5px 0px;
 	}
@@ -26,6 +31,10 @@
 
 	.status-update{
 		margin-top: 15px;
+	}
+
+	label{
+		font-weight: 300;
 	}
 
 	.contact-options, .required-field-prompt, .status-update{
@@ -51,7 +60,7 @@
 		height: 35px;
 		border-radius: 4px;
 		border: 1px solid transparent;
-		font-weight: bold;
+		font-weight: 400;
 	}
 
 </style>
@@ -66,11 +75,15 @@
 	<div class="row contact-options">
 		<div class="col-sm-12 col-md-12">
 			<h5>Reach us at: </h5>
-			<p class="col-xs-12 col-sm-12 col-md-12 glyphicon glyphicon-phone-alt"> <a href="tel:408-207-2147">408-207-2147</a></p> 
-			<p class="col-xs-12 col-sm-12 col-md-12 glyphicon glyphicon-envelope">
-			<a href="mailto:idealshinedetailing@gmail.com?Subject=Contact%20Inquiry" target="_top">
-			idealshinedetailing@gmail.com 
-			</a></p>
+			<div class="col-md-6">
+				<p class="col-xs-12 col-sm-12 col-md-12 glyphicon glyphicon-phone-alt"> <a href="tel:408-207-2147">408-207-2147</a></p>
+			</div>
+			<div class="col-md-6"> 
+				<p class="col-xs-12 col-sm-12 col-md-12 glyphicon glyphicon-envelope">
+				<a href="mailto:idealshinedetailing@gmail.com?Subject=Contact%20Inquiry" target="_top">
+				idealshinedetailing@gmail.com 
+				</a></p>
+			</div>
 			<p class="col-xs-12 col-sm-12 col-md-12 glyphicon glyphicon-align-justify"> <span>Contact Form Below:</span></p>
 			<p class="required-field-prompt">Please <span class="required-field-bold">complete all the fields</span>.</p>
 		</div>

@@ -1,0 +1,272 @@
+	@media screen and (min-width: 992px){
+		.see-packages{
+			position: absolute;
+			top: 89%;
+			left:10%;
+		}	
+
+		.see-packages a{
+			padding: 7px 60px;
+		}
+
+		.make-appt{
+			position:absolute;
+			top: 89%;
+			left:58%;
+		}
+
+		.make-appt a{
+			padding: 7px 85px;
+		}
+
+		.bottom-body-p p{
+			font-size: 22px;
+		}
+
+		.xs-screen-only{
+			display: none;
+		}
+
+		.divider{
+			background-color: black;
+		}
+
+		.divider:after{
+			border-top: 15px solid black;
+		}
+
+		.content-container a:hover{
+			text-decoration: none;
+		}
+	}
+
+	@media screen and (min-width: 768px) and (max-width: 991px){
+		.see-packages{
+			position: absolute;
+			top: 86%;
+			left:5%;
+		}
+
+		.see-packages a{
+			padding: 7px 30px;
+		}
+
+		.make-appt{
+			position:absolute;
+			top: 86%;
+			left:54%;
+		}	
+
+		.make-appt a{
+			padding: 7px 55px;
+		}
+
+		.bottom-body-p p{
+			font-size: 16px;
+		}
+
+		.xs-screen-only{
+			display: none;
+		}
+
+		.divider{
+			background-color: black;
+		}
+
+		.divider:after{
+			border-top: 15px solid black;
+		}
+
+		.divider h4{
+			text-decoration: underline;
+		}
+	}
+
+	@media screen and (max-width: 767px){
+		.make-appt, .see-packages, .main-body-pic{
+			display: none;
+		}
+
+		.bottom-body-p p{
+			font-size: 25px;
+		}
+
+		.xs-screen-only{
+			display: block;
+			text-align: center;
+		}
+
+		.divider{
+			background-color: #18829C;
+		}
+
+		.divider:after{
+			border-top: 15px solid #18829C;
+		}
+
+		.divider h4{
+			text-decoration: underline;
+		}
+
+		.see-packages-xs, .make-appt-xs{
+			padding: 0px;
+		}
+
+		.see-packages-xs a, .make-appt-xs a{
+			color:white;
+			text-decoration: none;
+			text-align: center;
+			font-size: 1.30em;
+			font-weight: 800;
+			display: inline-block;
+			width: 100%;
+			padding: 20px 0px;
+			text-decoration: underline; 
+			margin-top: 10px;
+		}
+
+		.see-packages-xs a{
+			background-color: #18829C; 
+		}
+
+		.make-appt-xs a{
+			background-color: #E88E3B;
+			margin-bottom: 10px;
+		}
+
+		.xs-screen-only{
+			background-color: black;
+		}
+	}
+
+	.body img, .bottom-body img{
+		width: 100%;
+	}
+
+	.bottom-body, .body{
+		padding: 0px;
+	}
+
+	.row{
+		margin: 0px
+	}
+/***************************************** Body ******************************************/ 
+	.see-packages a, .make-appt a{
+		color:white;
+		text-decoration: none;
+		text-align: center;
+		font-size: 1.30em;
+		background:rgba(0,0,0,0.25);
+		font-weight: 800;
+		transition: .5s;
+	}
+
+	.see-packages a{
+		border: 2px solid #18829C;
+	}
+
+	.make-appt a{
+		border: 2px solid #E88E3B;
+	}
+
+	.see-packages a:hover, .make-appt a:hover{
+		border-radius: 10px;
+		background:rgba(0,0,0,0.45);
+		transition: .5s;
+		border: 2px solid #fff;
+	}
+/*****************************************  Bottom Body ******************************************/ 
+	.bottom-body-p {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top:0;
+		left:0;
+		text-align: center;
+		background:rgba(0,0,0,0.25);
+		transition: 1s;
+	}
+
+	.bottom-body-p p{
+		font-family: 'Karma', serif;
+		color: white;
+		background:rgba(0,0,0,0.35);
+		margin-top: 60%;
+		transition: 1s;
+	}
+
+	.bottom-body-p a{
+		visibility: hidden;
+		display: inline-block;
+		margin-top: -10%;
+	}
+
+	.bottom-body:hover .bottom-body-p p{
+		background:rgba(0,0,0,0.01);
+		color: rgba(0,0,0,0.01);
+		transition: .5s;
+	}
+
+	.bottom-body:hover .bottom-body-p{
+		background:rgba(0,0,0,0.65);
+		transition: .5s;
+	}
+
+	.bottom-body:hover .bottom-body-p a{
+		visibility: visible;
+		font-size: 20px;
+		color: white;
+		background:rgba(0,0,0,0.65);
+		padding: 5px 30px 10px 30px;
+		border: 1px solid #18829C;
+		transition: .5s;
+	}
+
+	.bottom-body-p a:hover{
+		border-radius: 8px;
+		text-decoration: underline;
+	}
+
+	.content-container{
+		position: relative;
+		z-index: 1;
+		text-align: center;
+		border-left: 1px solid #353535;
+	}
+
+	.divider{
+		width: 100%;
+		height: 30px;
+		transition: .5s;
+	}
+
+	.divider:after{
+		content:"";
+		position: absolute;
+		bottom: -15px;
+		left:0;
+		right: 0;
+		margin: auto;
+		width: 0;
+		height: 0;
+		border-left: 20px solid transparent;
+		border-right: 20px solid transparent;
+		z-index: 1;
+		transition: .5s;
+	}
+
+	.bottom-body:hover .divider:after{
+		border-top: 15px solid #18829C;
+		transition: .5s;
+	}
+
+	.bottom-body:hover .divider{
+		background-color: #18829C;
+		transition: .5s;
+	}	
+
+	.divider h4{
+		margin-top: 0px;
+		padding-top: 5px;
+		color: white;
+	}

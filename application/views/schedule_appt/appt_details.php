@@ -126,6 +126,15 @@
 				html_str = "<option> </option>";
 				date(html_str);
 			});
+
+			$(".additional-show").click(function(){
+				if ($(".vehicle-add-container").is(":hidden")){
+					$(".vehicle-add-container").slideDown("slow");
+				}
+				else{
+					$(".vehicle-add-container").slideUp("slow");
+				}
+			});
 		});
 	</script>
 </head>
@@ -133,10 +142,12 @@
 	<div class="container-fluid location-header">
 		<h3>Schedule Appointment</h3>
 	</div>
-	<a href="/appointment/appt"> Back </a>
+	<?php $this->load->view('templates/schedule-breadcrumb')?>
+	<a class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 glyphicon glyphicon-arrow-left" href="/appointment/appt"></a>
 <span class = "validation_prompt"> <?= $this->session->flashdata('email_error') ?> </span>
 	<form class = "form-horizontal" action = "/appointment/details" method = "post" id = "details">
 <!-- ************************************** First Name Input *************************************** -->
+		<h3 class="col-md-offset-2">Contact</h3>
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> First Name: </label>
 			<div class = "col-sm-7 col-md-4">
@@ -224,7 +235,8 @@
 				<span class = "validation_prompt"><?= form_error('email')?> </span>
     		</div>
   		</div>
-<!-- ************************************** Make Input *************************************** -->		
+<!-- ************************************** Make Input *************************************** -->	
+		<h3 class="col-md-offset-2">Vehicle</h3>	
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Make: </label>
 				<div class = "col-sm-7 col-md-4">
@@ -276,14 +288,56 @@
 				</div>
 		</div>
 <!-- ***************************** Optional Additional Vehicle Info ************************** -->
+<?php 	if($this->session->userdata("vehicle_additional") == TRUE): ?>
 		<div class = "form-group">
-			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Additional Vehicle Info: </label>
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Additional Info:</label>
 			<div class = "col-sm-7 col-md-5">
 				<textarea class="form-control" rows="4" name = "vehicle_additional" 
-				placeholder = "If you cannot find your vehicle: 1. Select 'Other' in all the dropdowns above 2. Write the make, model, and year in this text-box."><?= $this->session->userdata('vehicle_additional')?></textarea>
+				placeholder = "1. Select 'Other' in all the dropdowns above 2. Write the make, model, and year in this text-box."><?= $this->session->userdata('vehicle_additional')?></textarea>
 			</div>
 		</div>
-<!-- ************************************** Date Input *************************************** -->			
+<?php 	else: ?>		
+		<div class="row">
+			<h5 class="additional-show-prompt">If you don't see your vehicle <span class="additional-show">click here</span>.</h5>
+		</div>
+		<div class = "form-group vehicle-add-container">
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Additional Info:</label>
+			<div class = "col-sm-7 col-md-5">
+				<textarea class="form-control" rows="4" name = "vehicle_additional" 
+				placeholder = "1. Select 'Other' in all the dropdowns above 2. Write the make, model, and year in this text-box."><?= $this->session->userdata('vehicle_additional')?></textarea>
+			</div>
+		</div>
+<?php 	endif; ?>
+<!-- ************************************** Package Input *************************************** -->
+		<h3 class="col-md-offset-2">Service</h3>
+		<div class = "form-group">
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Package: <br> 
+			<span class = "format_ex"><a href="" target="_blank">See Packages</a></span></label>
+			<div class = "col-sm-7 col-md-4">
+			<!--**** 1. Add class if form_error == TRUE 2. Set required attribute ****-->
+				<select name = "package" class = "form-control
+<?php 			if (form_error('package') == TRUE):?>
+					input_active
+<?php			endif; ?>"
+				id = "package" 
+				required oninvalid = "this.setCustomValidity('Please choose a package.')"
+				x-moz-errormessage = "Please choose a package."
+				onchange = "this.setCustomValidity('')">
+				<option><?= set_value('package')?>
+<?php 				if ($this->session->userdata("package") == TRUE && set_value("package") == FALSE): ?>
+						<?= $this->session->userdata("package") ?> 
+<?php				endif; ?>
+				</option>
+				<option>Classic Shine</option>
+				<option>Plus Shine</option>
+				<option>Premium Shine</option>
+				<option>Ideal Shine</option>
+				</select>
+				<span class = "validation_prompt"><?= form_error('package')?></span>	
+			</div>
+		</div>
+<!-- ************************************** Date Input *************************************** -->
+		<h3 class="col-md-offset-2">Date &amp; Time</h3>			
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Date: </label>
 			<div class = "col-sm-7 col-md-4">
@@ -321,34 +375,8 @@
 				<span class = "validation_prompt"><?= form_error('time')?></span>	
 			</div>
 		</div>
-<!-- ************************************** Package Input *************************************** -->
-		<div class = "form-group">
-			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Package: <br> 
-			<span class = "format_ex"><a href="" target="_blank">See Packages</a></span></label>
-			<div class = "col-sm-7 col-md-4">
-			<!--**** 1. Add class if form_error == TRUE 2. Set required attribute ****-->
-				<select name = "package" class = "form-control
-<?php 			if (form_error('package') == TRUE):?>
-					input_active
-<?php			endif; ?>"
-				id = "package" 
-				required oninvalid = "this.setCustomValidity('Please choose a package.')"
-				x-moz-errormessage = "Please choose a package."
-				onchange = "this.setCustomValidity('')">
-				<option><?= set_value('package')?>
-<?php 				if ($this->session->userdata("package") == TRUE && set_value("package") == FALSE): ?>
-						<?= $this->session->userdata("package") ?> 
-<?php				endif; ?>
-				</option>
-				<option>Classic Shine</option>
-				<option>Plus Shine</option>
-				<option>Premium Shine</option>
-				<option>Ideal Shine</option>
-				</select>
-				<span class = "validation_prompt"><?= form_error('package')?></span>	
-			</div>
-		</div>
 <!-- ************************************** Street Input *************************************** -->
+		<h3 class="col-md-offset-2">Location</h3>
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Street: </label>
 			<div class = "col-sm-7 col-md-4">
@@ -413,7 +441,7 @@
 		</div>
 <!-- ************************************** Optional Additional Appointment Input *************************************** -->
   		<div class = "form-group">
-			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Additional Appointment Info: </label>
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Additional Info: </label>
 			<div class = "col-sm-7 col-md-5">
 				<textarea class="form-control" placeholder="Ex: Location is in gated community, on a private road, pets we should be aware of, etc."
 				rows = "4" name = "appt_additional"><?= $this->session->userdata('appt_additional')?></textarea>
@@ -427,7 +455,7 @@
 		<!-- ********************************************************************************************* -->
 		<div class = "form-group">
 			<div class = "col-xs-offset-3 col-sm-offset-5 col-md-offset-5">
-				<button type="submit" class="btn btn-default">Submit Appointment Request</button>
+				<button type="submit" class="submit-btn">Submit Appointment Request</button>
 			</div>
 		</div>
 	</form>

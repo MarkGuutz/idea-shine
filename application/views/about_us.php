@@ -1,53 +1,57 @@
 <?php $this->load->view("/templates/header") ?>
-<style type="text/css">
-	.pic-body img{
-		width: 100%;
-		margin-top: 50px;
-	}
-
-	.main-body h3{
-		margin: 45px 0px 15px 0px;
-		text-align: center;
-		font-weight: bold;
-	}
-
-	.main-body{
-		margin-bottom: 70px;
-	}
-
-	.bold-statement{
-		font-family: 'Karma', serif;
-		font-size: 23px;
-		font-weight: bold;
-	}
-
-	p{
-		line-height: 300%;
-	}
-
-</style>
+	<link rel="stylesheet" type="text/css" href="../assets/css/about-us.css">
+</head>
 <?php $this->load->view("/templates/navbar") ?>
 	<div class="container-fluid location-header">
 		<h3>About Ideal Shine</h3>
 	</div>
 	<div class="row">
-		<div class="col-md-offset-2 col-md-8 pic-body">
-			<img src="/assets/pictures/car-wash-guy.png">
+		<div class="col-md-12 pic-body">
+			<img src="/assets/images/about-us/about-ideal-shine-hero.jpg" alt="About Ideal Shine Mobile Detailing">
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-9 col-md-offset-2 col-md-8 main-body">
-			<h3>One Man, One Mission</h3>
-			<p>Ideal Shine was founded in 2014 by me, Daniel Cortez. I started this business because I wanted to share my
-			<span class="bold-statement"> passion for detailing </span>with the Bay Area. I have over <span class="bold-statement">10 years of experience</span> 
-			detailing cars, trucks, and motorcycles. What started as a hobby has become a mission for me. Ideal Shine's goal is to provide
-			mobile detailing services that is 
-			<span class="bold-statement"> convenient</span>, <span class="bold-statement">affordable</span>, and 
-			<span class="bold-statement">environmentally conscious</span> services. We do this by detailing your vehicle at a location you decide, making appointments
-			easy through the phone or our <a href="/appointment/contact"> online appointment request</a>, and offer <a href="/main/prices_services"> affordable packages 
-			starting at $50</a>. We are proud to use cleaning solutions the enable us to drastically <span class="bold-statement">reduce our water use by 95%</span>, but
-			with the <span class="bold-statement">same quality</span> as traditional washes.
+		<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8 main-body">
+			<h2>One Man, One Mission</h2>
+			<div class="divider"></div>
+			<p>We all have busy lives. Many of us don't even have enough time to take a break during the day, let alone
+			spend hours detailing their vehicle. That's when I got the idea for Ideal Shine. I started my own mobile detailing 
+			business because I wanted to share my passion and expertise for detailing with the Bay Area. I love helping people 
+			get the ideal shine on their vehicles who don't have the time, supplies, or knowledge to do it themselves. </p> 
+			<p>I have over 10 years of experience detailing cars, trucks, and motorcycles. What 
+			started as a hobby has become a mission for me. That mission is to deliver service that follows the 3 principles below.
 			</p>
+		</div>
+	</div>
+	<div class="row bottom-body">
+		<h2>What We Have to Offer</h2>
+		<div class="divider"></div>
+		<div class="col-sm-4 col-md-4 sub-bottom-body">
+			<h4>Convenience</h4>
+			<img src="https://www.checkcentral.cc/ImagesCommon/CheckCentral/Marketing/iconQuick.png" alt="Convenience Icon">
+			<ul>
+				<li>We drive to you</li>
+				<li><a href="/appointment/contact">Request an appointment online</a></li>
+				<li>Save time, relax, and shine</li>
+			</ul>
+		</div>
+		<div class="col-sm-4 col-md-4 sub-bottom-body">
+			<h4>Value</h4>
+			<img src="http://eyenetra.com/assets/images/product/features-affordable.png" alt="Value Icon">
+			<ul>
+				<li><a href="/main/prices_services">Starting at $60</a></li>
+				<li>4 different packages</li>
+				<li>Great value in every package</li>
+			</ul>
+		</div>
+		<div class="col-sm-4 col-md-4 sub-bottom-body">
+			<h4>Water Friendly</h4>
+			<img src="http://www.willcountygreen.com/assets/1/AssetManager/200x200/Water%20Icon.JPG" alt="Water Friendly Icon">
+			<ul>
+				<li><a href="/main/faqs">We use 95% less water</a></li>
+				<li>One gallon of water can clean 5 cars</li>
+				<li>Same quality</li>
+			</ul>
 		</div>
 	</div>
 <?php $this->load->view("/templates/footer") ?>

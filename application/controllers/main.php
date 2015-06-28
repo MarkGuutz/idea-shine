@@ -10,31 +10,39 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		$head_title["title"] = "Home";
+		$head_title["title"] = "Ideal Shine | Home";
 		$this->load->view("home", $head_title);
 	}
 
 	public function prices_services()
 	{
-		$head_title["title"] = "Prices & Services";
+		if($this->input->post("package") !== FALSE)
+		{
+			$package["package"] = $this->input->post("package");
+			$this->session->set_userdata($package);
+			redirect("/appointment/contact"); 
+		}
+		else{
+		$head_title["title"] = "Ideal Shine | Prices & Services";
 		$this->load->view("prices_services", $head_title);
+	}
 	}
 
 	public function testimonials()
 	{
-		$head_title["title"] = "Testimonials";
+		$head_title["title"] = "Ideal Shine | Testimonials";
 		$this->load->view("testimonials", $head_title);
 	}
 
 	public function about_us()
 	{
-		$head_title["title"] = "About Us";
+		$head_title["title"] = "Ideal Shine | About Us";
 		$this->load->view("about_us", $head_title);
 	}
 
 	public function faqs()
 	{
-		$head_title["title"] = "FAQs";
+		$head_title["title"] = "Ideal Shine | FAQs";
 		$this->load->view("faqs", $head_title);
 	}
 

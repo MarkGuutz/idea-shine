@@ -5,11 +5,15 @@
 
 #logo{
 	width: 100%;
+	margin-left: 10px;
+}
+
+.navbar-brand{
+	padding: 0px 0px 0px 0px;
 }
 
 .container-fluid{
 	background-color: black;
-	margin: 0;
 }
 
 .navbar .navbar-nav{
@@ -23,7 +27,8 @@
 
 .navbar-default .navbar-nav > li > a{
 	color: white;
-	font-size: 20px;
+	font-size: 18px;
+	font-weight: 300;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .footer a:hover{
@@ -58,4 +63,25 @@
 .location-header h3{
 	color:white;
 	margin: 5px;
+}
+
+.navbar-collapse{
+	border:none;
+}
+
+.navbar-default .navbar-toggle{
+	border-color: #18829C;
+}
+
+.navbar-default .navbar-toggle:hover{
+	border-color: white;
+}
+
+.navbar-default .navbar-toggle:hover{
+	background-color: black;
+}
+
+.navbar-default .navbar-toggle:focus{
+	background-color: black;
+	border-color: white;
 }

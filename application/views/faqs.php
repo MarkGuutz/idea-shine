@@ -26,11 +26,11 @@
 	}	
 
 	.q-a_section h3:not(:first-of-type), hr{
-		margin: 55px 0px 20px 0px;
+		margin: 65px 0px 20px 0px;
 	}
 
 	.q-a_section h3:first-of-type{
-		margin-top: 35px;
+		margin-top: 40px;
 	}	
 </style>
 <?php $this->load->view("/templates/navbar") ?>

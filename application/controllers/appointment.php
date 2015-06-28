@@ -28,7 +28,8 @@ class Appointment extends CI_Controller {
 				"first_name" => ucwords($this->input->post("first_name")),
 				"last_name" => ucwords($this->input->post("last_name")),
 				"phone_no" => $phone_no,
-				"email" => $this->input->post("email")
+				"email" => $this->input->post("email"),
+				"contact_info" => "complete"
 				);
 			$this->session->set_userdata($data);
 			redirect("/appointment/vehicle");
@@ -37,92 +38,121 @@ class Appointment extends CI_Controller {
 //******************* Loads vehicle page for appointment requests and runs validations for inputs  ******************
 	public function vehicle()
 	{
-		$this->form_validation->set_rules('make', 'make', 'required');
-		$this->form_validation->set_rules('model', 'model', 'required');
-		$this->form_validation->set_rules('year', 'year', 'required');
-		if ($this->form_validation->run() == FALSE)
+		if($this->session->userdata("contact_info") !== "complete")
 		{
-			$head_title = array("title" => "Schedule: Vehicle/Package");
-			$this->load->view("schedule_appt/appt_vehicle_info", $head_title);
+			redirect("/appointment/contact");
 		}
-		else
-		{
-			$data = $this->input->post();
-			$this->session->set_userdata($data);
-			redirect("/appointment/appt");
+		else{
+			$this->form_validation->set_rules('make', 'make', 'required');
+			$this->form_validation->set_rules('model', 'model', 'required');
+			$this->form_validation->set_rules('year', 'year', 'required');
+			$this->form_validation->set_rules('package', 'package', 'required');
+			if ($this->form_validation->run() == FALSE)
+			{
+				$head_title = array("title" => "Schedule: Vehicle/Package");
+				$this->load->view("schedule_appt/appt_vehicle_info", $head_title);
+			}
+			else
+			{
+				$data = array(
+					"make" => $this->input->post("make"),
+					"model" => $this->input->post("model"),
+					"year" => $this->input->post("year"),
+					"vehicle_additional" => $this->input->post("vehicle_additional"),
+					"package" => $this->input->post("package"),
+					"vehicle_info" => "complete"
+					);
+				$this->session->set_userdata($data);
+				redirect("/appointment/appt");
+			}
 		}
 	}
 //********** Loads appointment location/date page for appointment requests and runs validations for inputs  ************
 	public function appt()
 	{
-		$this->form_validation->set_rules('date', 'date', 'required');
-		$this->form_validation->set_rules('time', 'time', 'required');
-		$this->form_validation->set_rules('package', 'package', 'required');
-		$this->form_validation->set_rules('street', 'street', 'required');
-		$this->form_validation->set_rules('city', 'city', 'required');
-		$this->form_validation->set_rules('zip', 'zip', 'required|exact_length[5]');
-		if ($this->form_validation->run() == FALSE)
+		if($this->session->userdata("vehicle_info") !== "complete")
 		{
-			$head_title = array("title" => "Schedule: Date/Location");
-			$this->load->view("schedule_appt/appt_appt_info", $head_title);
+			redirect("/appointment/vehicle");
 		}
 		else
 		{
-			$data = array(
-				"date" => $this->input->post("date"),
-				"time" => $this->input->post("time"),
-				"package" => $this->input->post("package"),
-				"street" => ucwords($this->input->post("street")),
-				"city" => ucwords($this->input->post("city")),
-				"zip" => $this->input->post("zip")
-				);
-			$this->session->set_userdata($data);
-			redirect("/appointment/details");
+			$this->form_validation->set_rules('date', 'date', 'required');
+			$this->form_validation->set_rules('time', 'time', 'required');
+			$this->form_validation->set_rules('street', 'street', 'required');
+			$this->form_validation->set_rules('city', 'city', 'required');
+			$this->form_validation->set_rules('zip', 'zip', 'required|callback_zip_format');
+			if ($this->form_validation->run() == FALSE)
+			{
+				$head_title = array("title" => "Schedule: Time/Location");
+				$this->load->view("schedule_appt/appt_appt_info", $head_title);
+			}
+			else
+			{
+				$zip = $this->format_zip($this->input->post("zip"));
+				$data = array(
+					"date" => $this->input->post("date"),
+					"time" => $this->input->post("time"),
+					"street" => ucwords($this->input->post("street")),
+					"city" => ucwords($this->input->post("city")),
+					"zip" => $zip,
+					"appt_additional" => $this->input->post("appt_additional"),
+					"appt_info" => "complete"
+					);
+				$this->session->set_userdata($data);
+				redirect("/appointment/details");
+			}
 		}
-		
 	}
 //**************** Loads appt. summary page for appointment requests and runs validations for inputs  ***************
 	public function details()
 	{
-		$this->form_validation->set_rules('first_name', 'first name', 'required');
-		$this->form_validation->set_rules('last_name', 'last name', 'required');
-		$this->form_validation->set_rules('phone_no', 'phone number', 'required|callback_phone_format');
-		$this->form_validation->set_rules('email', 'email', 'required|valid_email');
-		$this->form_validation->set_rules('make', 'make', 'required');
-		$this->form_validation->set_rules('model', 'model', 'required');
-		$this->form_validation->set_rules('year', 'year', 'required');
-		$this->form_validation->set_rules('date', 'date', 'required');
-		$this->form_validation->set_rules('time', 'time', 'required');
-		$this->form_validation->set_rules('package', 'package', 'required');
-		$this->form_validation->set_rules('street', 'street', 'required');
-		$this->form_validation->set_rules('city', 'city', 'required');
-		$this->form_validation->set_rules('zip', 'zip', 'required|exact_length[5]');
-		if ($this->form_validation->run() == FALSE){
-			$head_title = array("title" => "Appointment Summary");
-			$this->load->view("schedule_appt/appt_details", $head_title);
+		if($this->session->userdata("appt_info") !== "complete")
+		{
+			redirect("/appointment/appt");
 		}
 		else
 		{
-			$phone_no = $this->format_phone($this->input->post("phone_no"));
-			$data = array(
-				"first_name" => ucwords($this->input->post("first_name")),
-				"last_name" => ucwords($this->input->post("last_name")),
-				"phone_no" => $phone_no,
-				"alt_phone" => $this->input->post("alt_phone"),
-				"email" => $this->input->post("email"),
-				"make" => $this->input->post("make"),
-				"model" => $this->input->post("model"),
-				"year" => $this->input->post("year"),
-				"date" => $this->input->post("date"),
-				"time" => $this->input->post("time"),
-				"package" => $this->input->post("package"),
-				"street" => ucwords($this->input->post("street")),
-				"city" => ucwords($this->input->post("city")),
-				"zip" => $this->input->post("zip")
-				);
-			$this->session->set_userdata($data);
-			redirect("/appointment/send_appt");
-			// $this->load->view("schedule_appt/emailed_appt_info");
+			$this->form_validation->set_rules('first_name', 'first name', 'required');
+			$this->form_validation->set_rules('last_name', 'last name', 'required');
+			$this->form_validation->set_rules('phone_no', 'phone number', 'required|callback_phone_format');
+			$this->form_validation->set_rules('email', 'email', 'required|valid_email');
+			$this->form_validation->set_rules('make', 'make', 'required');
+			$this->form_validation->set_rules('model', 'model', 'required');
+			$this->form_validation->set_rules('year', 'year', 'required');
+			$this->form_validation->set_rules('date', 'date', 'required');
+			$this->form_validation->set_rules('time', 'time', 'required');
+			$this->form_validation->set_rules('package', 'package', 'required');
+			$this->form_validation->set_rules('street', 'street', 'required');
+			$this->form_validation->set_rules('city', 'city', 'required');
+			$this->form_validation->set_rules('zip', 'zip', 'required|callback_zip_format');
+			if ($this->form_validation->run() == FALSE){
+				$head_title = array("title" => "Schedule: Summary");
+				$this->load->view("schedule_appt/appt_details", $head_title);
+			}
+			else
+			{
+				$phone_no = $this->format_phone($this->input->post("phone_no"));
+				$zip = $this->format_zip($this->input->post("zip"));
+				$data = array(
+					"first_name" => ucwords($this->input->post("first_name")),
+					"last_name" => ucwords($this->input->post("last_name")),
+					"phone_no" => $phone_no,
+					"alt_phone" => $this->input->post("alt_phone"),
+					"email" => $this->input->post("email"),
+					"make" => $this->input->post("make"),
+					"model" => $this->input->post("model"),
+					"year" => $this->input->post("year"),
+					"date" => $this->input->post("date"),
+					"time" => $this->input->post("time"),
+					"package" => $this->input->post("package"),
+					"street" => ucwords($this->input->post("street")),
+					"city" => ucwords($this->input->post("city")),
+					"zip" => $this->input->post("zip")
+					);
+				$this->session->set_userdata($data);
+				redirect("/appointment/send_appt");
+				// $this->load->view("schedule_appt/emailed_appt_info");
+			}
 		}
 	}
 //************************************************ Email appt. request  ******************************************
@@ -156,6 +186,8 @@ class Appointment extends CI_Controller {
 		{	
 			if ($this->email->send())
 			{
+	    		
+				$this->session->sess_destroy();
 	    		redirect("/main/index");
 			}
 			else
@@ -200,6 +232,38 @@ class Appointment extends CI_Controller {
 		else{
 			$phone_no = preg_replace("/^(\d{1})(\d{3})(\d{3})(\d{4})$/", "$1-$2-$3-$4", $phone_no);
 			return $phone_no;
+		}
+	}
+//************************************************ zip format validation  ******************************************
+	public function zip_format($zip)
+	{
+		$zip_code = preg_replace("/\D/", "",$zip);
+		if (preg_match("/[a-zA-Z]/", $zip)){
+			$this->form_validation->set_message("zip_format", "The %s cannot have letters.");
+			return FALSE;
+		}
+		else if (strlen($zip_code) < 5 || strlen($zip_code) > 9 || strlen($zip_code) == 6 || strlen($zip_code) == 7 || strlen($zip_code) == 8){
+			$this->form_validation->set_message("zip_format", "Please enter a valid zip code.");
+			return FALSE;
+		}
+		else if($zip_code[0] !== "9"){
+			$this->form_validation->set_message("zip_format", "Please enter a valid California zip code.");
+			return FALSE;
+		}
+		else{
+			return TRUE;
+		}
+	}
+//******************************************** Format zip based on length *************************************
+	public function format_zip($zip)
+	{
+		$zip_code = preg_replace("/\D/", "",$zip);	
+		if (strlen($zip_code) == 9){
+			$zip_code = preg_replace("/^(\d{5})(\d{4})$/", "$1-$2", $zip_code);
+			return $zip_code; 
+		}
+		else{
+			return $zip_code;
 		}
 	}
 }

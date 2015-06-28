@@ -6,8 +6,12 @@
 	<div class="container-fluid location-header">
 		<h3>Schedule Appointment</h3>
 	</div>
-	<?= $this->session->flashdata("status") ?>
+	<?php $this->load->view('templates/schedule-breadcrumb')?>
+<?php 	if($this->session->userdata("contact_info")=="complete"):?>
+	<a class="col-xs-offset-9 col-sm-offset-9 col-md-offset-9 glyphicon glyphicon-arrow-right" href="/appointment/vehicle"></a>
+<?php	endif;?>
 	<form class = "form-horizontal" action = "/appointment/contact" id = "contactForm" method = "post">
+		<h3 class="col-md-offset-2">Contact</h3>
 <!-- ************************************** First Name Input *************************************** -->
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> First Name: </label>
@@ -98,7 +102,7 @@
   		</div>
 		<div class = "form-group">
 			<div class = "col-xs-offset-3 col-sm-offset-5 col-md-offset-5">
-				<button type="submit" class="btn btn-default">Continue to Vehicle Info</button>
+				<button type="submit" class="submit-btn">Continue to Vehicle Info</button>
 			</div>
 		</div>
 	</form>
