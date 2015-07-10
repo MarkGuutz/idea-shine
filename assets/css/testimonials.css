@@ -1,0 +1,107 @@
+body{
+	background-color: #202021;
+}
+
+.head-container{
+	padding: 2px;
+}
+
+.head-container h2{
+	background-color: white;
+	padding: 5px;
+	font-weight: bold;
+	margin: 10px 0 0 0;
+	color: #18829C;
+	letter-spacing: 1.5px;
+}
+
+.featured-pic-container img{
+	width: 100%;
+}
+
+.divider{
+	margin: auto;
+	width: 50px;
+	height: 3px;
+	background-color: #E88E3B;
+}	
+
+.divider-container{
+	background-color: white;
+	padding-bottom: 5px;
+}
+
+.featured-pic-container{
+	padding: 2px;
+}
+
+.featured-story{
+	background-color: #202021;
+	padding: 2px;
+}
+
+.owner-info-container, .owner-story-container{
+	background-color: #202021;
+	padding: 1px;
+}
+
+.owner-info, .owner-story{
+	background-color: white;
+}
+
+.owner-info h3{
+	background-color: #E88E3B;
+	color: white;
+	padding: 2px;
+	font-family: 'Karma', serif;
+	margin: 0px
+}
+
+@media screen and (min-width: 992px){
+	.featured-story{
+		max-width: 852px;
+	}
+
+	.owner-info{
+		height: 280px;
+	}
+
+	.owner-vehicle{
+		padding-top: 25%;
+	}
+
+	.owner-story p{
+		height: 250px;
+	}
+
+	.head-container, .featured-pic-container{
+		max-width: 852px;
+	}
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px){
+	.owner-story p{
+		height: 210px;
+	}
+
+	.owner-vehicle{
+		padding-top: 20%;
+	}
+
+	.owner-info{
+		height: 240px;
+	}
+}
+.owner-story h3{
+	background-color: #18829C;
+	color: white;
+	padding: 2px;
+	font-family: 'Karma', serif;	
+	margin: 0;
+}
+
+.owner-story p{
+	padding: 5px 25px;
+	line-height: 155%;	
+}

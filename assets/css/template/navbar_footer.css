@@ -8,63 +8,6 @@
 	margin-left: 10px;
 }
 
-.navbar-brand{
-	padding: 0px 0px 0px 0px;
-}
-
-.container-fluid{
-	background-color: black;
-}
-
-.navbar .navbar-nav{
-    display: inline-block;
-    float: none;
-}
-
-.navbar .navbar-collapse, .footer ul{
-    text-align: center;
-}	
-
-.navbar-default .navbar-nav > li > a{
-	color: white;
-	font-size: 18px;
-	font-weight: 300;
-}
-
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .footer a:hover{
-	color: #18829C; 
-	text-decoration: none;
-}
-
-.navbar-default{
-	margin-bottom: 0;
-	border: none;
-}
-
-.footer li{
-	list-style: none;
-	display: inline-block;
-}
-
-.footer ul{
-	height: 35px;
-	padding-top: 10px;
-}	
-
-.footer a{
-	color:white;
-	font-size: 14px;
-}
-
-.location-header{
-	background-color: #18829C;
-}
-
-.location-header h3{
-	color:white;
-	margin: 5px;
-}
-
 .navbar-collapse{
 	border:none;
 }
@@ -84,4 +27,99 @@
 .navbar-default .navbar-toggle:focus{
 	background-color: black;
 	border-color: white;
+}
+
+.row{
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.navbar-brand{
+	padding: 0;
+}
+
+.container-fluid{
+	background-color: black;
+}
+
+.navbar .navbar-nav{
+    display: inline-block;
+    float: none;
+}
+
+.navbar .navbar-collapse{
+    text-align: center;
+}	
+
+.navbar-default .navbar-nav > li > a{
+	color: white;
+	font-size: 18px;
+	font-weight: 300;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .footer a:hover{
+	color: #18829C; 
+	text-decoration: none;
+}
+
+.navbar-default{
+	margin-bottom: 0;
+	border: none;
+}
+
+.location-header{
+	background-color: #18829C;
+}
+
+.location-header h3{
+	color:white;
+	margin: 5px;
+	font-weight: 300;
+	text-align: center;
+}
+/**********************Footer******************/
+.footer-wrapper{
+	border-top: 1px solid #E88E3B;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.footer h5{
+	font-weight: 800;
+	color: #a5a2a2;
+}
+
+.footer li{
+	list-style: none;
+}
+
+.footer-links li, .contact-footer li, .social-footer li{
+	margin-bottom: 10px;
+}
+
+.footer ul{
+	padding-top: 10px;
+	padding-left: 0;
+	margin-bottom: 30px;
+}	
+
+.footer a{
+	color:white;
+	font-size: 14px;
+}
+
+.yelp-container img{
+	width: 125px;
+	height: 55px;
+}
+
+.social-logo{
+	width: 37px;
+	height: 37px;
+}
+
+@media screen and (max-width: 767px){
+	.footer-wrapper{
+		text-align: center;
+	}
 }

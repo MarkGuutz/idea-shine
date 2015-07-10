@@ -135,19 +135,43 @@
 					$(".vehicle-add-container").slideUp("slow");
 				}
 			});
+
+			$(".additional-show1").click(function(){
+				if ($(".appt-add-container").is(":hidden")){
+					$(".appt-add-container").slideDown("slow");
+				}
+				else{
+					$(".appt-add-container").slideUp("slow");
+				}
+			});
 		});
 	</script>
 </head>
 <?php $this->load->view('templates/navbar') ?>
 	<div class="container-fluid location-header">
-		<h3>Schedule Appointment</h3>
+		<h3>REQUEST APPOINTMENT: SUMMARY</h3>
 	</div>
 	<?php $this->load->view('templates/schedule-breadcrumb')?>
-	<a class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 glyphicon glyphicon-arrow-left" href="/appointment/appt"></a>
-<span class = "validation_prompt"> <?= $this->session->flashdata('email_error') ?> </span>
-	<form class = "form-horizontal" action = "/appointment/details" method = "post" id = "details">
+	<div class="step-location">
+		<table>
+			<tr>
+				<td><a class="glyphicon glyphicon-arrow-left" href="/request-mobile-detailing-appointment-appt-details"></a></td>
+				<td><h4>Step 4 of 4</h4></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+	<span class = "validation_prompt text-center"> <?= $this->session->flashdata('email_error') ?> </span>
+			<div class="row scheduling-info">
+			<div class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 sched-prompt">
+				<p>Please review the information below and submit.</p>
+				<p>We will contact you within 24 hours to confirm the date, time, and price once you have submitted your appointment request.</p>
+			</div>
+		</div>
+	<div class="row form-container3">
+	<form class = "form-horizontal form-container1" action = "/request-mobile-detailing-appointment-summary" method = "post" id = "details">
 <!-- ************************************** First Name Input *************************************** -->
-		<h3 class="col-md-offset-2">Contact</h3>
+		<h4 class="appt-step">Contact</h4>
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> First Name: </label>
 			<div class = "col-sm-7 col-md-4">
@@ -236,7 +260,7 @@
     		</div>
   		</div>
 <!-- ************************************** Make Input *************************************** -->	
-		<h3 class="col-md-offset-2">Vehicle</h3>	
+		<h4 class="appt-step">Vehicle</h4>	
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Make: </label>
 				<div class = "col-sm-7 col-md-4">
@@ -298,10 +322,10 @@
 		</div>
 <?php 	else: ?>		
 		<div class="row">
-			<h5 class="additional-show-prompt">If you don't see your vehicle <span class="additional-show">click here</span>.</h5>
+			<h5 class="additional-show-prompt">If you don't see your vehicle <span class="additional-show additional-show-link">click here</span>.</h5>
 		</div>
 		<div class = "form-group vehicle-add-container">
-			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Additional Info:</label>
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Vehicle Additional Info:</label>
 			<div class = "col-sm-7 col-md-5">
 				<textarea class="form-control" rows="4" name = "vehicle_additional" 
 				placeholder = "1. Select 'Other' in all the dropdowns above 2. Write the make, model, and year in this text-box."><?= $this->session->userdata('vehicle_additional')?></textarea>
@@ -309,10 +333,12 @@
 		</div>
 <?php 	endif; ?>
 <!-- ************************************** Package Input *************************************** -->
-		<h3 class="col-md-offset-2">Service</h3>
+		<h4 class="appt-step">Service</h4>
+		<div class = "text-center">
+			<a href="/request-mobile-detailing-appointment-vehicle-service" target="_blank">See Packages &amp; Services</a>
+		</div> <br>
 		<div class = "form-group">
-			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Package: <br> 
-			<span class = "format_ex"><a href="" target="_blank">See Packages</a></span></label>
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Package:</label>
 			<div class = "col-sm-7 col-md-4">
 			<!--**** 1. Add class if form_error == TRUE 2. Set required attribute ****-->
 				<select name = "package" class = "form-control
@@ -332,12 +358,47 @@
 				<option>Plus Shine</option>
 				<option>Premium Shine</option>
 				<option>Ideal Shine</option>
+				<option>Additional Service(s) Only</option>
 				</select>
 				<span class = "validation_prompt"><?= form_error('package')?></span>	
 			</div>
 		</div>
+		<div class = "validation_prompt"> <?= $this->session->flashdata('add-services') ?> </div>
+		<h4 class="appt-step">Additional Services</h4>
+			<div class="row add_service text-center">
+				<table>
+					<tr>
+						<td><input type="checkbox" name="deep_clean" value="Upholstery Deep Clean"
+<?php 				if($this->session->userdata("deep_clean") !== FALSE):?>
+						checked="checked"
+<?php 				endif; ?>
+						> Upholstery Deep Clean</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" name="headlight_restoration" value="Headlight Restoration"
+<?php 				if($this->session->userdata("headlight_restoration") !== FALSE):?>
+						checked="checked"
+<?php 				endif; ?>
+						> Headlight Restoration</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" name="pet_hair_removal" value="Pet Hair Removal"
+<?php 				if($this->session->userdata("pet_hair_removal") !== FALSE):?>
+						checked="checked"
+<?php 				endif; ?>
+						> Pet Hair Removal</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" name="exterior_trim" value="Exterior Trim Restoration"
+<?php 				if($this->session->userdata("exterior_trim") !== FALSE):?>
+						checked="checked"
+<?php 				endif; ?>
+						> Exterior Trim Restoration</td>
+					</tr>
+				</table>
+			</div>
 <!-- ************************************** Date Input *************************************** -->
-		<h3 class="col-md-offset-2">Date &amp; Time</h3>			
+		<h4 class="appt-step">Date &amp; Time</h4>			
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Date: </label>
 			<div class = "col-sm-7 col-md-4">
@@ -376,7 +437,7 @@
 			</div>
 		</div>
 <!-- ************************************** Street Input *************************************** -->
-		<h3 class="col-md-offset-2">Location</h3>
+		<h4 class="appt-step">Location</h4>
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Street: </label>
 			<div class = "col-sm-7 col-md-4">
@@ -440,13 +501,25 @@
 			</div>
 		</div>
 <!-- ************************************** Optional Additional Appointment Input *************************************** -->
-  		<div class = "form-group">
-			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Additional Info: </label>
+<?php 	if($this->session->userdata("appt_additional") == TRUE):?>
+		<div class = "form-group">
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Additional Info:</label>
 			<div class = "col-sm-7 col-md-5">
-				<textarea class="form-control" placeholder="Ex: Location is in gated community, on a private road, pets we should be aware of, etc."
-				rows = "4" name = "appt_additional"><?= $this->session->userdata('appt_additional')?></textarea>
+				<textarea class="form-control" rows="4" name = "appt_additional" 
+				placeholder = "Ex: Gated community, on a private road, pets we should be aware of, etc."><?= $this->session->userdata('appt_additional')?></textarea>
 			</div>
 		</div>
+<?php 	else: ?>
+		<div class="row">
+			<h5 class="additional-show-prompt">Additional notes about appointment and/or location <span class="additional-show1 additional-show-link">click here</span>.</h5>
+		</div>
+		<div class = "form-group appt-add-container">
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Additional Info: </label>
+			<div class = "col-sm-7 col-md-5">
+				<textarea class="form-control" rows = "4" name = "appt_additional" placeholder="Ex: Gated community, on a private road, pets we should be aware of, etc."><?= $this->session->userdata('appt_additional')?></textarea>
+			</div>
+		</div>
+<?php   endif;?>
 		<!-- ************************************** Bot/Spam Test *************************************** -->
 		<div style="display: none;">
 			<label for = "alt_phone"> Alt Phone </label>
@@ -454,9 +527,10 @@
 		</div>
 		<!-- ********************************************************************************************* -->
 		<div class = "form-group">
-			<div class = "col-xs-offset-3 col-sm-offset-5 col-md-offset-5">
+			<div class = "text-center">
 				<button type="submit" class="submit-btn">Submit Appointment Request</button>
 			</div>
 		</div>
 	</form>
+	</div>
 <?php $this->load->view('templates/footer') ?>

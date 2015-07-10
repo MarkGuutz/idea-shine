@@ -12,11 +12,17 @@
 		    </div>
 		  	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
-		        <li><a href="/main/index">Home</a></li>
-		        <li><a href="/main/prices_services">Prices/Serivces</a></li>
-		        <li><a href="/main/testimonials">Testimonials</a></li>
-		       	<li><a href="/appointment/contact">Schedule Appointment</a></li>
+		        <li><a href="/main/index">HOME</a></li>
+		        <li><a href="/prices-services">PRICES &amp; SERVICES</a></li>
+		       	<li><a href="/request-mobile-detailing-appointment-contact">REQUEST APPOINTMENT</a></li>
+	       	<div class="visible-xs nav navbar-nav">
+		       	<li><a href="/about-ideal-shine">ABOUT</a></li>
+				<li><a href="/mobile-detailing-faqs">FAQs</a></li>
+				<li><a href="/customers-cars">CUSTOMER'S CARS</a></li>
+				<li><a href="/contact-ideal-shine">CONTACT</a></li>
+	     	</div>
 		      </ul>
 		    </div>
 		</div>
 	</nav>
+	<script type="text/javascript">(function(d, t) {var g = d.createElement(t);var s = d.getElementsByTagName(t)[0];g.id = "yelp-biz-badge-script-rrc-7RUMgOxvXzapzen7PFzsQQ";g.src = "//dyn.yelpcdn.com/biz_badge_js/en_US/rrc/7RUMgOxvXzapzen7PFzsQQ.js";s.parentNode.insertBefore(g, s);}(document, 'script'));</script>

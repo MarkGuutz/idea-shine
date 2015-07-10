@@ -44,20 +44,37 @@
 				html_str = "<option> </option>";
 				date(html_str);
 			});
+
+			$(".additional-show").click(function(){
+				if ($(".appt-add-container").is(":hidden")){
+					$(".appt-add-container").slideDown("slow");
+				}
+				else{
+					$(".appt-add-container").slideUp("slow");
+				}
+			});
 		});
 	</script>
 </head>
 <?php $this->load->view('templates/navbar') ?>
 	<div class="container-fluid location-header">
-		<h3>Schedule Appointment</h3>
+		<h3>REQUEST APPOINTMENT: TIME &amp; LOCATION</h3>
 	</div>
 	<?php $this->load->view('templates/schedule-breadcrumb')?>
-	<a class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 glyphicon glyphicon-arrow-left" href="/appointment/vehicle"></a>
+	<div class="step-location">
+		<table>
+			<tr>
+				<td><a class="glyphicon glyphicon-arrow-left" href="/request-mobile-detailing-appointment-vehicle-service"></a></td>
+				<td><h4>Step 3 of 4</h4></td>
 <?php 	if($this->session->userdata("appt_info")=="complete"):?>
-	<a class="col-xs-offset-8 col-sm-offset-9 col-md-offset-9 glyphicon glyphicon-arrow-right" href="/appointment/details"></a>
+				<td><a class="glyphicon glyphicon-arrow-right" href="/request-mobile-detailing-appointment-summary"></a></td>
 <?php	endif;?>
-	<form class = "form-horizontal" action = "/appointment/appt" id = "apptForm" method = "post">
-		<h3 class="col-md-offset-2">Date &amp; Time</h3>
+			</tr>
+		</table>
+	</div>
+	<div class="row form-img_container2">
+	<form class = "form-horizontal form-container" action = "/request-mobile-detailing-appointment-appt-details" id = "apptForm" method = "post">
+		<h4 class="appt-step">Date &amp; Time</h4>
 <!-- ************************************** Date Input *************************************** -->			
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Date: </label>
@@ -97,7 +114,7 @@
 			</div>
 		</div>
 <!-- ************************************** Street Input *************************************** -->
-		<h3 class="col-md-offset-2">Location</h3>
+		<h4 class="appt-step">Location</h4>
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Street: </label>
 			<div class = "col-sm-7 col-md-4">
@@ -139,7 +156,7 @@
 				<span class = "validation_prompt"><?= form_error('city')?></span>	
 			</div>
 		</div>
-<!-- ************************************** Zip Input *************************************** -->
+<!-- ************************************** Zip Input *************************************** -->		
 		<div class = "form-group">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Zip:</label>
 			<div class = "col-sm-7 col-md-4">
@@ -161,16 +178,30 @@
 			</div>
 		</div>
 <!-- ************************************** Optional Additional Appointment Input *************************************** -->
-  		<div class = "form-group">
+<?php 	if($this->session->userdata("appt_additional") == TRUE):?>
+		<div class = "form-group">
+			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Additional Info:</label>
+			<div class = "col-sm-7 col-md-5">
+				<textarea class="form-control" rows="4" name = "appt_additional" 
+				placeholder = "1. Select 'Other' in all the dropdowns above 2. Write the make, model, and year in this text-box."><?= $this->session->userdata('appt_additional')?></textarea>
+			</div>
+		</div>
+<?php 	else: ?>
+		<div class="row">
+			<h5 class="additional-show-prompt">Additional notes about appointment and/or location <span class="additional-show">click here</span>.</h5>
+		</div>
+		<div class = "form-group appt-add-container">
 			<label class = "col-sm-3 col-md-offset-2 col-md-2 control-label"> Additional Info: </label>
 			<div class = "col-sm-7 col-md-5">
 				<textarea class="form-control" rows = "4" name = "appt_additional" placeholder="Ex: Gated community, on a private road, pets we should be aware of, etc."><?= $this->session->userdata('appt_additional')?></textarea>
 			</div>
 		</div>
+<?php   endif;?>  		
 		<div class = "form-group">
-			<div class = "col-xs-offset-4 col-sm-offset-5 col-md-offset-5">
-				<button type = "submit" class = "submit-btn">Continue to Vehicle Info</button>
+			<div class = "text-center">
+				<button type = "submit" class = "submit-btn">Continue to Appt. Info</button>
 			</div>
 		</div>
 	</form>
+	</div>
 <?php $this->load->view('templates/footer') ?>

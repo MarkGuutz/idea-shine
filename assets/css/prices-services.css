@@ -1,0 +1,322 @@
+@media screen and (min-width: 992px){
+	.exterior{
+		height: 215px;
+	}
+
+	.interior{
+		height: 320px;
+	}
+
+	.package-description{
+		height: 228px;
+	}
+
+	.add-services{
+		margin-bottom: 20px;
+	}
+
+	.add-services-last{
+		margin-bottom: 5px
+	}
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px){
+	.classic-col .package-description, .plus-col .package-description{
+		height: 120px;
+	}
+
+	.classic-col .exterior, .plus-col .exterior{
+		height: 97px;
+	}
+
+	.classic-col .interior, .plus-col .interior{
+		height: 195px;
+	}
+
+	.premium-col .package-description, .ideal-col .package-description{
+		height: 140px;
+	}
+
+	.premium-col .exterior, .ideal-col .exterior{
+		height: 160px;
+	}
+
+	.premium-col .interior, .ideal-col .interior{
+		height: 320px;
+	}
+
+	.classic-col, .plus-col{
+		margin-bottom: 60px;
+	}
+}
+
+@media screen and (max-width: 767px){
+	.classic-col, .plus-col, .premium-col{
+		margin-bottom: 90px;
+	}
+
+	.ideal-col{
+		margin-bottom: 10px;
+	}
+
+	.add-services{
+		margin-bottom: 90px;
+	}
+
+	.add-services-last{
+		margin-bottom: 10px;
+	}
+}
+
+body{
+	background-color: #202021;
+}
+
+.packages-head{
+	padding: 0 2px;
+}
+
+.packages-head h2{
+	background-color: white;
+	padding: 5px;
+	font-weight: bold;
+	margin: 10px 0 0 0;
+	color: #18829C;
+	letter-spacing: 1.5px;
+}
+
+.submit-row{
+	background: #202021;
+	padding: 2px;
+}
+
+.divider-mid{
+	height: 200px;
+	width: 100%;
+	background: #18829C;
+}
+
+.packages-head p{
+	background-color: white;
+	padding: 2px;
+	margin-bottom: 1px;
+	font-size: 14px;
+}
+
+.package-container{
+	background-color: white;
+}
+
+.package-col{
+	padding: 2px;
+	background-color: #202021;
+}
+
+.package-description{
+	background-color: #F7F7F7;
+	padding: 10px 20px;
+	text-align: left;
+}
+
+.package-description p{
+	font-size: 14px;
+	line-height: 1.7
+}
+
+.package-description p:first-child{
+	font-weight: bold;
+}
+
+.classic-col .package-description p:first-child{
+	font-weight: 400;
+}
+
+.package-col h3{
+	margin: 0 -15px;
+	font-family: 'Karma', serif;
+}
+
+.package-col h4{
+	background-color: #F7F7F7;
+	margin: 10px -15px;
+	padding: 10px 0;
+}
+
+.package-container div:first-child h4{
+	background-color: white;
+	padding: 10px;
+	margin: 0px -15px;
+}
+
+.package-col, .prices-col h4, input{
+	text-align: center;
+}
+
+.services-col{
+	text-align: left;
+	margin: 20px 0px;
+}
+
+li{
+	line-height: 300%;
+	font-size: 10px;
+}
+
+table{
+	margin: 0 auto;
+}
+
+td:nth-child(odd){
+	padding-right: 60px;
+}
+
+td{
+	line-height: 270%;
+}
+
+/*Clssic Column */
+.classic-col h3{
+	border-top: solid 1px black;
+	border-bottom: solid 1px black;
+	background-color: white;
+}
+
+/*Plus Column*/
+
+.plus-col h3{
+	background-color: black;
+	color: white;
+	border-top: solid 1px black;
+	border-bottom: solid 1px black;
+}
+
+/*Premium column */
+.premium-col h3{
+	background-color: #E88E3B;
+	color: white;
+	border-top: solid 1px #E88E3B;
+	border-bottom: solid 1px #E88E3B;
+}	
+
+/*Ideal column */
+.ideal-col h3{
+	background-color: #18829C;
+	color: white;
+	border-top: solid 1px #18829C;
+	border-bottom: solid 1px #18829C;
+}
+
+/***********************/
+.services-col, .prices-col{
+	display: none;
+}
+
+.divider{
+	margin: auto;
+	width: 50px;
+	height: 3px;
+	background-color: #E88E3B;
+}	
+
+.divider-container{
+	background-color: white;
+}
+
+.services-col h5, .prices-col h5{
+	background-color: #F7F7F7;
+	padding: 3px 0;
+}
+
+.services-head, .prices-head{
+	cursor: hand;
+	text-decoration: underline;
+}
+
+#package-btn{
+	background-color: #007bff;
+	border: none;
+	color: white;
+	width: 270px;
+	height: 40px;
+	padding: 3px 0;
+	transition: .5s;
+	margin-bottom: 20px;
+}
+
+.add-btn{
+	background-color: #007bff;
+	border: none;
+	color: white;
+	width: 270px;
+	height: 40px;
+	padding: 3px 0;
+	transition: .5s;
+}
+
+.add-btn:hover, #package-btn:hover{
+	width: 290px;
+	height: 40px;
+	transition: .5s;
+	border-radius: 4px;
+}
+
+.add-services{
+	padding: 2px;
+}
+
+.service-name{
+	padding: 0;
+}
+
+.add-services h3{
+	background-color: white;
+	margin: 0px;
+	padding: 4px;
+	font-family: 'Karma', serif;
+}
+
+.add-description{
+	background-color: #F7F7F7;
+}
+
+.add-description p{
+	margin: 0;
+	padding: 5px;
+	font-size: 14px;
+	line-height: 150%;
+}
+
+.add-checkbox{
+	background: #E88E3B;
+	padding: 10px;
+	color: white;
+}
+
+.add-prices{
+	background: white;
+	padding: 10px;
+	border-bottom: 1px solid black 
+}
+
+.add-btn-container{
+	background-color: white;
+	padding: 10px;
+}
+
+.submit-container{
+	background-color: white;
+	padding: 10px 3px 3px 3px;
+}
+
+.submit-container p{
+	margin-top: 5px;
+	font-size: 14px;
+}
+
+.radio-container{
+	padding-bottom: 15px;
+}
+
+#add-services{
+	margin-top: 2px;
+}

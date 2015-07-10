@@ -32,7 +32,7 @@ class Appointment extends CI_Controller {
 				"contact_info" => "complete"
 				);
 			$this->session->set_userdata($data);
-			redirect("/appointment/vehicle");
+			redirect("/request-mobile-detailing-appointment-vehicle-service");
 		}
 	}
 //******************* Loads vehicle page for appointment requests and runs validations for inputs  ******************
@@ -40,7 +40,7 @@ class Appointment extends CI_Controller {
 	{
 		if($this->session->userdata("contact_info") !== "complete")
 		{
-			redirect("/appointment/contact");
+			redirect("/request-mobile-detailing-appointment-contact");
 		}
 		else{
 			$this->form_validation->set_rules('make', 'make', 'required');
@@ -60,10 +60,21 @@ class Appointment extends CI_Controller {
 					"year" => $this->input->post("year"),
 					"vehicle_additional" => $this->input->post("vehicle_additional"),
 					"package" => $this->input->post("package"),
+					"deep_clean" => $this->input->post("deep_clean"),
+					"headlight_restoration" => $this->input->post("headlight_restoration"),
+					"pet_hair_removal" => $this->input->post("pet_hair_removal"),
+					"exterior_trim" => $this->input->post("exterior_trim"),
 					"vehicle_info" => "complete"
 					);
 				$this->session->set_userdata($data);
-				redirect("/appointment/appt");
+
+				if($this->input->post("package") == "Additional Service(s) Only" && $this->session->userdata("deep_clean") == FALSE && $this->session->userdata("headlight_restoration") == FALSE 
+				&& $this->session->userdata("pet_hair_removal") == FALSE && $this->session->userdata("exterior_trim") == FALSE)
+				{
+					$this->session->set_flashdata('add-services', 'Please add at least one service.');
+					redirect("/request-mobile-detailing-appointment-vehicle-service");
+				}
+				redirect("/request-mobile-detailing-appointment-appt-details");
 			}
 		}
 	}
@@ -72,7 +83,7 @@ class Appointment extends CI_Controller {
 	{
 		if($this->session->userdata("vehicle_info") !== "complete")
 		{
-			redirect("/appointment/vehicle");
+			redirect("/request-mobile-detailing-appointment-vehicle-service");
 		}
 		else
 		{
@@ -99,7 +110,7 @@ class Appointment extends CI_Controller {
 					"appt_info" => "complete"
 					);
 				$this->session->set_userdata($data);
-				redirect("/appointment/details");
+				redirect("/request-mobile-detailing-appointment-summary");
 			}
 		}
 	}
@@ -108,7 +119,7 @@ class Appointment extends CI_Controller {
 	{
 		if($this->session->userdata("appt_info") !== "complete")
 		{
-			redirect("/appointment/appt");
+			redirect("/request-mobile-detailing-appointment-appt-details");
 		}
 		else
 		{
@@ -133,6 +144,13 @@ class Appointment extends CI_Controller {
 			{
 				$phone_no = $this->format_phone($this->input->post("phone_no"));
 				$zip = $this->format_zip($this->input->post("zip"));
+				if($this->input->post("package") == "Additional Service(s) Only" && $this->input->post("deep_clean") == FALSE && $this->input->post("headlight_restoration") == FALSE 
+				&& $this->input->post("pet_hair_removal") == FALSE && $this->input->post("exterior_trim") == FALSE)
+				{
+					$this->session->set_userdata("package", "Additional Service(s) Only");
+					$this->session->set_flashdata('add-services', 'Please add at least one additional service.');
+					redirect("/request-mobile-detailing-appointment-summary");
+				}
 				$data = array(
 					"first_name" => ucwords($this->input->post("first_name")),
 					"last_name" => ucwords($this->input->post("last_name")),
@@ -145,9 +163,15 @@ class Appointment extends CI_Controller {
 					"date" => $this->input->post("date"),
 					"time" => $this->input->post("time"),
 					"package" => $this->input->post("package"),
+					"deep_clean" => $this->input->post("deep_clean"),
+					"headlight_restoration" => $this->input->post("headlight_restoration"),
+					"pet_hair_removal" => $this->input->post("pet_hair_removal"),
+					"exterior_trim" => $this->input->post("exterior_trim"),
 					"street" => ucwords($this->input->post("street")),
 					"city" => ucwords($this->input->post("city")),
-					"zip" => $this->input->post("zip")
+					"zip" => $this->input->post("zip"),
+					"appt_additional" => $this->input->post("appt_additional"),
+					"vehicle_additional" => $this->input->post("vehicle_additional")
 					);
 				$this->session->set_userdata($data);
 				redirect("/appointment/send_appt");
@@ -158,24 +182,26 @@ class Appointment extends CI_Controller {
 //************************************************ Email appt. request  ******************************************
 	public function send_appt()
 	{
-	    $config = array(
-			'protocol' => 'smtp',
-			'smtp_host' => 'ssl://smtp.googlemail.com',
-			'smtp_port' => 465,
-			'smtp_user' => 'idealshinedetailing@gmail.com', 
-			'smtp_pass' => 'danielsmells', 
-			'mailtype' => 'html',
-			'charset' => 'iso-8859-1',
-			'validate' => TRUE,
-			'wordwrap' => TRUE);
+	    $config['protocol'] = 'smtp'; 
+		$config['smtp_host'] = 'smtp.office365.com'; 
+		$config['smtp_user'] = 'idealshine@idealshinedetailing.com'; 
+		$config['smtp_pass'] = 'D@nielsmells1'; 
+		$config['smtp_port'] = 587; 
+		$config['charset'] = 'iso-8859-1'; 
+		$config['smtp_crypto'] = 'tls'; 
+		$config['newline'] = '\r\n'; 
+		$config['mailtype'] = 'html';
+		$config['crlf'] = '\r\n'; 
+		$config['wordwrap'] = TRUE;
 
 		$this->load->library('email', $config);
+		$this->email->set_crlf("\r\n");
 		$this->email->set_newline("\r\n");
-		$this->email->from('idealshinedetailing@gmail.com', 'Ideal Shine Detailing');
+		$this->email->from('idealshine@idealshinedetailing.com', 'Ideal Shine Detailing');
 		$this->email->to($this->session->userdata('email')); 
-		$this->email->bcc('idealshinedetailing@gmail.com'); 
+		$this->email->bcc('idealshine@idealshinedetailing.com'); 
 		$this->email->subject('Appointment Request Received');
-		$msg = $this->load->view('schedule_appt/emailed_appt_info', '', true);
+		$msg = $this->load->view('/schedule_appt/emailed_appt_info', '', true);
 		$this->email->message($msg);
 		//****************************************** Bot/Spam Test *******************************************
 		if (!empty($this->session->userdata("alt_phone")))
@@ -185,17 +211,27 @@ class Appointment extends CI_Controller {
 		else
 		{	
 			if ($this->email->send())
-			{
-	    		
+			{	
 				$this->session->sess_destroy();
-	    		redirect("/main/index");
+				redirect("/appointment/appt_confirmation");
 			}
+
 			else
 			{
 				$this->session->set_flashdata('email_error', 'There was an error sending the appointment request. Please try again.');
 				redirect("/appointment/details");
 			}
 		}	
+	}
+
+	public function appt_confirmation(){
+		$this->session->set_flashdata('success', 'Thank you for requesting an appointment! You will receive an email with further details.');
+	    redirect("/main/index");
+	}
+
+	public function appt_sent()
+	{
+		$this->session->set_flashdata('success', 'Thank you for requesting an appointment! You will receive an email with further details.');
 	}
 //************************************************ Phone format validation  ******************************************
 	public function phone_format($phone)

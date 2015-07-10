@@ -16,21 +16,40 @@ class Main extends CI_Controller {
 
 	public function prices_services()
 	{
-		if($this->input->post("package") !== FALSE)
+		if($this->input->post("package") !== FALSE || $this->input->post("deep_clean") !== FALSE || $this->input->post("headlight_restoration") || 
+			$this->input->post("pet_hair_removal") !== FALSE || $this->input->post("exterior_trim") !== FALSE)
 		{
-			$package["package"] = $this->input->post("package");
-			$this->session->set_userdata($package);
-			redirect("/appointment/contact"); 
+			if($this->input->post("package") !== FALSE)
+			{
+				$package["package"] = $this->input->post("package");
+				$this->session->set_userdata($package);
+			}
+
+			if($this->input->post("package") == "Additional Service(s) Only" && $this->input->post("deep_clean") == FALSE && $this->input->post("headlight_restoration") == FALSE
+				&& $this->input->post("pet_hair_removal") == FALSE && $this->input->post("exterior_trim") == FALSE)
+			{
+				redirect("/prices-services");
+			}
+			
+			$data = array(
+						"deep_clean" => $this->input->post("deep_clean"),
+						"headlight_restoration" => $this->input->post("headlight_restoration"),
+						"pet_hair_removal" => $this->input->post("pet_hair_removal"),
+						"exterior_trim" => $this->input->post("exterior_trim")
+						);
+			$this->session->set_userdata($data);
+			redirect("/request-mobile-detailing-appointment-contact");
 		}
-		else{
-		$head_title["title"] = "Ideal Shine | Prices & Services";
-		$this->load->view("prices_services", $head_title);
-	}
+		else
+		{
+			$head_title["title"] = "Ideal Shine | Prices & Services";
+			$this->load->view("prices_services", $head_title);
+		}
 	}
 
 	public function testimonials()
 	{
-		$head_title["title"] = "Ideal Shine | Testimonials";
+		$head_title["title"] = "Ideal Shine | Customer's Cars";
 		$this->load->view("testimonials", $head_title);
 	}
 
@@ -78,22 +97,24 @@ class Main extends CI_Controller {
 
 	public function send_message()
 	{
-	    $config = array(
-			'protocol' => 'smtp',
-			'smtp_host' => 'ssl://smtp.googlemail.com',
-			'smtp_port' => 465,
-			'smtp_user' => 'idealshinedetailing@gmail.com', 
-			'smtp_pass' => 'danielsmells', 
-			'mailtype' => 'html',
-			'charset' => 'iso-8859-1',
-			'validate' => TRUE,
-			'wordwrap' => TRUE);
+		$config['protocol'] = 'smtp'; 
+		$config['smtp_host'] = 'smtp.office365.com'; 
+		$config['smtp_user'] = 'idealshine@idealshinedetailing.com'; 
+		$config['smtp_pass'] = 'D@nielsmells1'; 
+		$config['smtp_port'] = 587; 
+		$config['smtp_timeout'] = 60; 
+		$config['charset'] = 'iso-8859-1'; 
+		$config['smtp_crypto'] = 'tls'; 
+		$config['newline'] = '\r\n'; 
+		$config['mailtype'] = 'html';
+		$config['wordwrap'] = TRUE; 
 
 		$this->load->library('email', $config);
+		$this->email->set_crlf("\r\n");
 		$this->email->set_newline("\r\n");
-		$this->email->from('idealshinedetailing@gmail.com', 'Ideal Shine Detailing');
+		$this->email->from('idealshine@idealshinedetailing.com', 'Ideal Shine Detailing');
 		$this->email->to($this->session->userdata('info')['email']); 
-		$this->email->bcc('idealshinedetailing@gmail.com'); 
+		$this->email->bcc('idealshine@idealshinedetailing.com'); 
 		$this->email->subject('Thank You for Contacting Us!');
 		$msg = $this->load->view('/contact_us_message', '', true);
 		$this->email->message($msg);
@@ -108,8 +129,8 @@ class Main extends CI_Controller {
 			if ($this->email->send())
 			{
 	    		$this->session->unset_userdata('info');
-	    		$this->session->set_flashdata('success', 'Your message was sent successfully. Thank You!');
-				redirect("/main/contact_us");
+	    		$this->session->set_flashdata('success', 'Your message was sent successfully. We will respond within 24 hours. Thank You!');
+				redirect("/main/index");
 			}
 			else
 			{
